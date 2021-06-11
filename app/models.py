@@ -16,9 +16,7 @@ class User(UserMixin,db.Model):
     """ 
     class modelling the users 
     """
-
     __tablename__='users'
-
     
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255))
@@ -82,7 +80,6 @@ class Pitch(db.Model):
     vote = db.relationship("Votes", backref="pitches", lazy = "dynamic")
 
 
-
     def save_pitch(self):
         """
         Save the pitches 
@@ -99,8 +96,6 @@ class Pitch(db.Model):
     def get_pitches(id):
         pitches = Pitch.query.filter_by(category_id=id).all()
         return pitches
-
-
 
 
 class Comments(db.Model):
