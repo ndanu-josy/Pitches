@@ -12,10 +12,10 @@ def index():
     Index pge that displays different pitch categories
     '''
     all_category = PitchCategory.get_categories()
-    all_pitches = Pitch.query.order_by('-id').all()
+    all_pitches = Pitch.query.order_by('id').all()
     print(all_pitches)
 
-    title = 'Home'
+    title = 'pitch-it'
     return render_template('index.html', title = title, categories=all_category, all_pitches=all_pitches)
 
 

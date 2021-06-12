@@ -23,7 +23,7 @@ class User(UserMixin, db.Model):
 
     #create the columns
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255))
+    username = db.Column(db.String(255),index = True)
     email = db.Column(db.String(255), unique=True, index=True)
     password_hash = db.Column(db.String(255))
     bio = db.Column(db.String(255))
