@@ -11,14 +11,14 @@ class PitchesForm(FlaskForm):
 
 class CommentsForm(FlaskForm):
     """
-    Class to create a wtf form for creating a pitch
+    Class to create a wtf form for adding comments
     """
     opinion = TextAreaField('Add a comment')
     submit = SubmitField('Submit')
 
 class CategoriesForm(FlaskForm):
     """
-    Class to create a wtf form for creating a pitch
+    Class to create a wtf form for adding pitch categories
     """
     name =  StringField('Category Name', validators=[Required()])
     submit = SubmitField('Create')
