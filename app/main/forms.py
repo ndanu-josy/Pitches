@@ -14,7 +14,7 @@ class CommentForm(FlaskForm):
     """
     Class to create a wtf form for adding comments
     """
-    opinion = TextAreaField('Add a comment')
+    text = TextAreaField('Add a comment')
     submit = SubmitField('Submit')
 
 class CategoryForm(FlaskForm):

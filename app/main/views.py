@@ -95,26 +95,64 @@ def view_pitch(id):
 
 
 @main.route('/write_comment/<int:id>', methods=['GET', 'POST'])
-@login_required
-def post_comment(id):
-    """ 
-    Function to post comments 
-    """
+# @login_required
+# def post_comment(id):
+#     """ 
+#     Function to post comments 
+#     """
     
-    form = CommentForm()
-    title = 'post comment'
-    pitches = Pitch.query.filter_by(id=id).first()
+#     form = CommentForm()
+#     title = 'post comment'
+#     pitches = Pitch.query.filter_by(id=id).first()
 
-    if pitches is None:
-         abort(404)
+#     if pitches is None:
+#          abort(404)
 
-    if form.validate_on_submit():
-        opinion = form.opinion.data
-        new_comment = Comments(opinion = opinion, user_id = current_user.id, pitches_id = pitches.id)
-        new_comment.save_comment()
-        return redirect(url_for('.view_pitch', id = pitches.id))
+#     if form.validate_on_submit():
+#         opinion = form.opinion.data
+#         new_comment = Comments(opinion = opinion, user_id = current_user.id, pitches_id = pitches.id)
+#         new_comment.save_comment()
+#         return redirect(url_for('.view_pitch', id = pitches.id))
 
-    return render_template('post_comment.html', comment_form = form, title = title)
+#     return render_template('comments.html', comment_form = form, title = title)
+@main.route('/comment/<int:id>',methods= ['POST','GET'])
+@login_required
+def viewPitch(id):
+    onepitch = Pitch.getPitchId(id)
+    comments = Comments.get_comments(id)
+
+    if request.args.get("like"):
+        onepitch.likes = onepitch.likes + 1
+
+        db.session.add(onepitch)
+        db.session.commit()
+
+        return redirect("/comment/{pitch_id}".format(pitch_id=pitch.id))
+
+    elif request.args.get("dislike"):
+        onepitch.dislikes = onepitch.dislikes + 1
+
+        db.session.add(onepitch)
+        db.session.commit()
+
+        return redirect("/comment/{pitch_id}".format(pitch_id=pitch.id))
+
+    commentForm = CommentForm()
+    if commentForm.validate_on_submit():
+        comment = commentForm.text.data
+
+        newComment = Comments(opinion = comment,user = current_user,pitches_id= id)
+
+        newComment.save_comment()
+
+    return render_template('comments.html',commentForm = commentForm,comments = comments,pitch = onepitch)
+
+    
+
+
+
+
+
 
 
 
