@@ -147,3 +147,24 @@ def upvote(id,vote_type):
             break
     
     return redirect(url_for('.view_pitch', id=id))
+
+@main.route('/category/interview',methods= ['GET'])
+def displayInterviewCategory():
+    interviewPitches = Pitch.get_pitches('interview')
+    return render_template('interviewPitches.html',interviewPitches = interviewPitches)
+    
+@main.route('/category/product',methods= ['POST','GET'])
+def displayProductCategory():
+    productPitches = Pitch.get_pitches('product')
+    return render_template('productPitches.html',productPitches = productPitches)
+
+@main.route('/category/promotion',methods= ['POST','GET'])
+def displayPromotionCategory():
+    promotionPitches = Pitch.get_pitches('promotion')
+    return render_template('promotionPitches.html',promotionPitches = promotionPitches)
+
+@main.route('/category/pickup',methods= ['POST','GET'])
+def displayPickupCategory():
+    pickuplinePitches = Pitch.get_pitches('pickup')
+    return render_template('pickuplinePitches.html',pickuplinePitches = pickuplinePitches)    
+

@@ -99,14 +99,14 @@ class Pitch(db.Model):
         db.session.commit()
 
     @classmethod
-    def clear_pitches(cls):
-        Pitch.all_pitches.clear()
-
-    # display pitches
-
-    def get_pitches(id):
-        pitches = Pitch.query.filter_by(category_id=id).all()
+    def get_pitches(cls,category):
+        pitches = Pitch.query.filter_by(pitch_category=category).all()
         return pitches
+
+    @classmethod
+    def getPitchId(cls,id):
+        pitch = Pitch.query.filter_by(id=id).first()
+        return pitch
 
 
 class Votes(db.Model):
