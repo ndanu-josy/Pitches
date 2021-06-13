@@ -1,24 +1,26 @@
 {% extends 'base.html'%}
 {% import 'macros.html' as macro %}
 {% block content%}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Viaoda+Libre&display=swap" rel="stylesheet">
+<div class="container-fluid text-center" style="font-family: 'Viaoda Libre', cursive; font-size:3em; background-image: url('https://media.istockphoto.com/photos/abstract-blue-digital-particles-wave-and-digital-data-network-for-picture-id1220733324?k=6&m=1220733324&s=612x612&w=0&h=hkF79iLLMnoFsdI4_3uhs7I4O2UPgZQE_V4NEpzOIf4=');
+background-repeat:no-repeat; background-position:center center; background-size:cover; color:goldenrod; height:50vh">
 
-<div class="container-fluid">
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container text-white text-center">
-      <h2 class="card-title h1-responsive font-bold">Welcome to <strong>Pitch-It</strong></h2>
-      <p class="lead">Wondering how you can organize your pitches?.</p>
-      <p class="lead">Worry no more, We got you!!!.</p>
-      <a class="btn btn-outline-info btn-md" href="{{url_for('main.new_pitch')}}"><i class="fas fa-clone left"></i>Add a Pitch</a>
-    </div>
-  </div>
+
+  <h1>Welcome to <strong>Pitch-It</strong></h1>
+  <p>Wondering how you can organize your pitches?.</p>
+  <p>Worry no more, We got you!!!.</p>
+
+  <a class="btn btn-primary btn-lg" href="{{url_for('main.new_pitch')}}" style="height:40px"> <span class="glyphicon glyphicon-plus"></span>Create a Pitch</a>
 </div>
+<hr>
 <div class="container">
 
-  <h1>Pitch Categories</h1>
+  <h1 class="text-center">Pitch Categories</h1>
   <div class="row form-group m-3">
     <div class="col-md-6 ">
       <div class="panel shadow p-3 mb-5 bg-body rounded">
-        <div class="panel-body">
+        <div class="panel-body" style="background-color: #e5e5e5;">
           <h5 class="card-title">Interview Pitches</h5>
 
           <p class="card-text">You going to nail that interview.</p>
@@ -30,7 +32,7 @@
 
     <div class="col-md-6 ">
       <div class="panel shadow p-3 mb-5 bg-body rounded">
-        <div class="panel-body">
+        <div class="panel-body" style="background-color: #e5e5e5;">
           <h5 class="card-title">Promotion Pitches</h5>
 
           <p class="card-text">You deserve that promotion</p>
@@ -44,7 +46,7 @@
   <div class="row form-group m-3">
     <div class="col-md-6 ">
       <div class="panel shadow p-3 mb-5 bg-body rounded">
-        <div class="panel-body">
+        <div class="panel-body" style="background-color: #e5e5e5;">
           <h5 class="card-title">Product Pitches</h5>
 
           <p class="card-text">Winnining is the game.</p>
@@ -56,9 +58,9 @@
 
     <div class="col-md-6 ">
       <div class="panel shadow p-3 mb-5 bg-body rounded">
-        <div class="panel-body">
+        <div class="panel-body" style="background-color: #e5e5e5;">
           <h5 class="card-title">Pickup Lines</h5>
-          <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+       
           <p class="card-text">Never running out of words.</p>
           <a href="{{url_for('main.displayPickupCategory')}}" class="btn btn-info">View Pitches</a>
 

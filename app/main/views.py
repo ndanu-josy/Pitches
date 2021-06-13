@@ -43,7 +43,7 @@ def new_pitch():
         newPitch.save_pitch()
         return redirect(url_for('.index'))
 
-    title = 'NEW PITCH'
+    title = 'Pitch Here'
     return render_template('new_pitch.html',title = title,pitchform = pitch)  
 
 @main.route('/categories/<int:id>')
@@ -94,27 +94,7 @@ def view_pitch(id):
     return render_template('view-pitch.html', pitches = pitches, comment = comment, count_likes=len(count_likes), count_dislikes=len(count_dislikes), category_id = id, categories=all_category)
 
 
-@main.route('/write_comment/<int:id>', methods=['GET', 'POST'])
-# @login_required
-# def post_comment(id):
-#     """ 
-#     Function to post comments 
-#     """
-    
-#     form = CommentForm()
-#     title = 'post comment'
-#     pitches = Pitch.query.filter_by(id=id).first()
 
-#     if pitches is None:
-#          abort(404)
-
-#     if form.validate_on_submit():
-#         opinion = form.opinion.data
-#         new_comment = Comments(opinion = opinion, user_id = current_user.id, pitches_id = pitches.id)
-#         new_comment.save_comment()
-#         return redirect(url_for('.view_pitch', id = pitches.id))
-
-#     return render_template('comments.html', comment_form = form, title = title)
 @main.route('/comment/<int:id>',methods= ['POST','GET'])
 @login_required
 def viewPitch(id):
@@ -139,22 +119,13 @@ def viewPitch(id):
 
     commentForm = CommentForm()
     if commentForm.validate_on_submit():
-        comment = commentForm.text.data
+        opinion = commentForm.text.data
 
-        newComment = Comments(opinion = comment,user = current_user,pitches_id= id)
+        newComment = Comments(opinion = opinion,user = current_user,pitches_id= id)
 
         newComment.save_comment()
 
     return render_template('comments.html',commentForm = commentForm,comments = comments,pitch = onepitch)
-
-    
-
-
-
-
-
-
-
 
 @main.route('/pitch/upvote/<int:id>&<int:vote_type>')
 @login_required
