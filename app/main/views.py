@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required, current_user
-from . forms import PitchForm, CommentForm, CategoryForm
+from . forms import PitchForm, CommentForm, CategoryForm, UpvoteForm
 from .import main
 from .. import db
-from ..models import User, Pitch, Comments, PitchCategory
+from ..models import User, Pitch, Comments, PitchCategory, Upvote, Downvote
 
 
 @main.route('/')
@@ -127,35 +127,31 @@ def viewPitch(id):
 
     return render_template('comments.html',commentForm = commentForm,comments = comments,pitch = onepitch)
 
-@main.route('/pitch/upvote/<int:id>&<int:vote_type>')
+@main.route('/pitch/upvote/<int:pitch_id>/upvote', methods = ['GET', 'POST'])
 @login_required
-def upvote(id,vote_type):
-    """
-    View function that adds one to the vote_number column in the votes table
-    """
- 
-    votes = Votes.query.filter_by(user_id=current_user.id).all()
-    print(f'The new vote is {votes}')
-    to_str=f'{vote_type}:{current_user.id}:{id}'
-    print(f'The current vote is {to_str}')
-
-    if not votes:
-        new_vote = Votes(vote=vote_type, user_id=current_user.id, pitches_id=id)
-        new_vote.save_vote()
-        # print(len(count_likes))
-        print('YOU HAVE new VOTED')
-
-    for vote in votes:
-        if f'{vote}' == to_str:
-            print('YOU CANNOT VOTE MORE THAN ONCE')
-            break
-        else:   
-            new_vote = Votes(vote=vote_type, user_id=current_user.id, pitches_id=id)
-            new_vote.save_vote()
-            print('YOU HAVE VOTED')
-            break
+def upvote(pitch_id):
+    pitch = Pitch.query.get(pitch_id)
+    user = current_user
+    pitch_upvotes = Upvote.query.filter_by(pitch_id= pitch_id)
     
-    return redirect(url_for('.view_pitch', id=id))
+    if Upvote.query.filter(Upvote.user_id==user.id,Upvote.pitch_id==pitch_id).first():
+        return  redirect(url_for('main.index'))
+
+
+    new_upvote = Upvote(pitch_id=pitch_id, user = current_user)
+    new_upvote.save_upvotes()
+    return redirect(url_for('main.index'))
+
+@main.route('/pitch/downvote/<int:pitch_id>/downvote', methods = ['GET', 'POST'])
+@login_required
+def downvote(pitch_id):
+    pitch = Pitch.query.get(pitch_id)
+    user = current_user
+    pitch_downvotes = Downvote.query.filter_by(pitch_id= pitch_id)
+    
+    if Downvote.query.filter(Downvote.user_id==user.id,Downvote.pitch_id==pitch_id).first():
+        return  redirect(url_for('main.index'))    
+
 
 @main.route('/category/interview',methods= ['GET'])
 def displayInterviewCategory():
