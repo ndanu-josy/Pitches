@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from . forms import PitchForm, CommentForm, CategoryForm
 from .import main
 from .. import db
-from ..models import User, Pitch, Comments, PitchCategory, Votes
+from ..models import User, Pitch, Comments, PitchCategory
 
 
 @main.route('/')
