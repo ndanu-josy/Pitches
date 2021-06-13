@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required, current_user
-from . forms import PitchForm, CommentForm, CategoryForm, UpvoteForm
+from . forms import PitchForm, CommentForm, CategoryForm
 from .import main
 from .. import db
 from ..models import User, Pitch, Comments, PitchCategory, Upvote, Downvote
@@ -53,7 +53,8 @@ def category(id):
         abort(404)
 
     pitches=Pitch.get_pitches(id)
-    return render_template('category.html', pitches=pitches, category=category)
+    upvotes = Upvote.get_all_upvotes(pitch_id=Pitch.id)
+    return render_template('category.html', pitches=pitches, category=category, upvotes=upvotes)
 
 
 @main.route('/add/category', methods=['GET','POST'])
@@ -127,35 +128,41 @@ def viewPitch(id):
 
     return render_template('comments.html',commentForm = commentForm,comments = comments,pitch = onepitch)
 
-@main.route('/pitch/upvote/<int:pitch_id>/upvote', methods = ['GET', 'POST'])
-@login_required
-def upvote(pitch_id):
-    pitch = Pitch.query.get(pitch_id)
-    user = current_user
-    pitch_upvotes = Upvote.query.filter_by(pitch_id= pitch_id)
+# @main.route('/pitch/upvote/<int:pitch_id>/upvote', methods = ['GET', 'POST'])
+# @login_required
+# def upvote():
+#     pitch = Pitch.query.get(pitch_id)
+#     user = current_user
+#     pitch_upvotes = Upvote.query.filter_by(pitch_id= pitch_id)
     
-    if Upvote.query.filter(Upvote.user_id==user.id,Upvote.pitch_id==pitch_id).first():
-        return  redirect(url_for('main.index'))
+#     if Upvote.query.filter(Upvote.user_id==user.id,Upvote.pitch_id==pitch_id).first():
+#         return  redirect(url_for('main.index'))
 
 
-    new_upvote = Upvote(pitch_id=pitch_id, user = current_user)
-    new_upvote.save_upvotes()
+#     new_upvote = Upvote(pitch_id=pitch_id, user = current_user)
+#     new_upvote.save_upvotes()
+#     return redirect(url_for('main.index'))
+
+@main.route('/pitch/downvote/<int:id>/downvote', methods = ['GET', 'POST'])
+@login_required
+def downvote(id):
+    pitch = Pitch.query.get(id)
+    user = current_user
+    pitch_downvotes = Downvote.query.filter_by(id= id)
+    
+    if Downvote.query.filter(Downvote.user_id==user.id,Downvote.id==id).first():
+        return  redirect(url_for('main.index'))   
+
+    new_downvote = Downvote(id=id, user = current_user)
+    new_downvote.save_downvotes()
     return redirect(url_for('main.index'))
-
-@main.route('/pitch/downvote/<int:pitch_id>/downvote', methods = ['GET', 'POST'])
-@login_required
-def downvote(pitch_id):
-    pitch = Pitch.query.get(pitch_id)
-    user = current_user
-    pitch_downvotes = Downvote.query.filter_by(pitch_id= pitch_id)
-    
-    if Downvote.query.filter(Downvote.user_id==user.id,Downvote.pitch_id==pitch_id).first():
-        return  redirect(url_for('main.index'))    
+     
 
 
 @main.route('/category/interview',methods= ['GET'])
 def displayInterviewCategory():
     interviewPitches = Pitch.get_pitches('interview')
+   
     return render_template('interviewPitches.html',interviewPitches = interviewPitches)
     
 @main.route('/category/product',methods= ['POST','GET'])

@@ -88,8 +88,8 @@ class Pitch(db.Model):
 
     comment = db.relationship("Comments", backref="pitches", lazy="dynamic")
     # vote = db.relationship("Votes", backref="pitches", lazy="dynamic")
-    upvotes = db.relationship('Upvote', backref = 'user', lazy = 'dynamic')
-    downvotes = db.relationship('Downvote', backref = 'user', lazy = 'dynamic')
+    upvotes = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
+    downvotes = db.relationship('Downvote', backref = 'pitch', lazy = 'dynamic')
 
     def save_pitch(self):
         """
