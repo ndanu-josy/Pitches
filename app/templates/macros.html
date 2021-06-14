@@ -5,9 +5,9 @@
     <div class="well well-lg p-3 col-md-3" style="text-align: center; width: 50%; margin-left: 300px ">
         <h3>{{pitch.pitch_title}}</h3>
         <hr>
-        <p>{{pitch.pitch_comment|truncate(50)}}</p>
+        <p>{{pitch.pitch_comment}}</p>
         <p>By : {{pitch.user.username}} </p>
-        <p>Posted on: {{pitch.posted}}</p>
+        <p>Posted on: {{pitch.posted | date}}</p>
         <a href="/comment/{{pitch.id}}" class="btn btn-success btn-center -center">
             Comment</a>
 
