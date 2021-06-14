@@ -15,8 +15,19 @@ def index():
     all_pitches = Pitch.query.order_by('id').all()
     print(all_pitches)
 
+    pitch = Pitch.query.filter_by().first()
+    title = 'Home'
+    pickuplines = Pitch.query.filter_by(pitch_category="pickuplines")
+    interviewpitch = Pitch.query.filter_by(pitch_category = "interviewpitch")
+    promotionpitch = Pitch.query.filter_by(pitch_category = "promotionpitch")
+    productpitch = Pitch.query.filter_by(pitch_category = "productpitch")
+
+    upvotes = Upvote.get_all_upvotes(pitch_id=Pitch.id)
+
     title = 'pitch-it'
-    return render_template('index.html', title = title, categories=all_category, all_pitches=all_pitches)
+    # return render_template('index.html', title = title, categories=all_category, all_pitches=all_pitches)
+    return render_template('index.html', title = title, pitch = pitch, pickuplines=pickuplines, interviewpitch= interviewpitch, promotionpitch = promotionpitch, productpitch = productpitch, upvotes=upvotes)
+    
 
 
 

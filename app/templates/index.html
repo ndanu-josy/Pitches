@@ -5,6 +5,10 @@
   .panel-body{
     height: 200px;
   }
+  .card-title{
+    color: #03071e;
+    font-size: 2em;
+  }
 </style>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Viaoda+Libre&display=swap" rel="stylesheet">
@@ -18,10 +22,11 @@ background-repeat:no-repeat; background-position:center center; background-size:
 
   <a class="btn btn-primary btn-lg" href="{{url_for('main.new_pitch')}}" style="height:40px"> <span class="glyphicon glyphicon-plus"></span>Create a Pitch</a>
 </div>
-<hr>
+
 <div class="container" style="height:50vh">
 
-  <h1 class="text-center">Pitch Categories</h1>
+  <h1 class="text-center" style="color: goldenrod;">Pitch Categories</h1>
+  <hr>
   <div class="row form-group m-3">
     <div class="col-md-3 ">
       <div class="panel shadow p-3 mb-5 bg-body rounded text-center">
