@@ -1,7 +1,11 @@
-# Pitches In Georgia
+# Pitch-It
+
+## Author
+Josphine Ndanu
 
 ## Description
-This is a pitch application or website that allows a user to view pitches in any category shown. Also, a user can comment on a pitch in any category and vote in any catecory for the pitch a user likes and a user can also create a pitch for any category they want to create in.
+We all know that pitching is never regarded an easy job regardless of whatever topic it is. 
+Pitch-It is an application that helps a user create or view available pitches in whatever category they would like to.
 
 ## Prerequisites
 You need the following to start working on this project: On your local systems;
@@ -13,25 +17,32 @@ You need the following to start working on this project: On your local systems;
 
 
 ## Project SetUp
+1. Install python version 3.8
+1. Clone this repository :  `$ git clone https://github.com/ndanu-josy/Pitches.git'
+1. create  a virtual environment 
 
-1. Git clone  https://github.com/Chebichii-Lab/pitches.git
-2. Naviagate to the folder using terminal.
-3. Run The files
+1. Create a start.sh file and add these lines of code
+    export MAIL_USERNAME='your-email'
+    export MAIL_PASSWORD='password'
+    export SECRET_KEY='secret-key'
+    python3.8 manage.py server
+
 
 # Running The Application
 In your terminal, run the following commands;
  
  $ chmod a+x start.sh
-
-## Technologies Used
-
-1. Python 3.8
-2. Git 
-3. Bootstrap
-4. Flask
+ then run ./start.sh
 
 # Live Site 
 View [live](https://pitch-here.herokuapp.com/)
+
+## Technologies Used
+1. Python 3.8
+2. Bootstrap
+3. Flask
+
+
 
 This project is under the  [MIT](LICENSE) licence
 
