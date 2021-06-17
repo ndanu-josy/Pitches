@@ -1,0 +1,4 @@
+Hello {{user.username}}
+Welcome to Pitches
+We have numerous pich ideas to share.
+You really gonna love it here.
